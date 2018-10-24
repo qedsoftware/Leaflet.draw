@@ -1,5 +1,5 @@
 /*
- Leaflet.draw 1.0.3+5954e63, a plugin that adds drawing and editing tools to Leaflet powered maps.
+ Leaflet.draw 1.0.3+705eb96, a plugin that adds drawing and editing tools to Leaflet powered maps.
  (c) 2012-2017, Jacob Toye, Jon West, Smartrak, Leaflet
 
  https://github.com/Leaflet/Leaflet.draw
@@ -8,7 +8,7 @@
 (function (window, document, undefined) {/**
  * Leaflet.draw assumes that you have already included the Leaflet library.
  */
-L.drawVersion = "1.0.3+5954e63";
+L.drawVersion = "1.0.3+705eb96";
 /**
  * @class L.Draw
  * @aka Draw
@@ -4538,7 +4538,9 @@ L.EditToolbar.Edit = L.Handler.extend({
 			if (layer.editing) {
 				layer.editing.enable();
 			}
-			layer.dragging.enable();
+			if (layer.dragging != null) {
+				layer.dragging.enable();
+			}
 			layer
 				.on('dragend', this._onMarkerDragEnd)
 				// #TODO: remove when leaflet finally fixes their draggable so it's touch friendly again.
@@ -4574,7 +4576,9 @@ L.EditToolbar.Edit = L.Handler.extend({
 		}
 
 		if (layer instanceof L.Marker) {
-			layer.dragging.disable();
+			if (layer.dragging != null) {
+				layer.dragging.disable();
+			}
 			layer
 				.off('dragend', this._onMarkerDragEnd, this)
 				.off('touchmove', this._onTouchMove, this)
